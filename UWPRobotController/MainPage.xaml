@@ -1,0 +1,54 @@
+﻿<Page
+    x:Class="UWPRobotController.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPRobotController"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Add" Label="Connect" Click="AppBarButton_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid Background="#FF00D8FF" >
+    <Viewbox Stretch="Uniform" >
+        <Grid Background="#FF00D8FF" HorizontalAlignment="Left" Width="1024" Height="640" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="buttonStop" Grid.Column="1" HorizontalAlignment="Stretch" Margin="8.4,11,9.4,10" Grid.Row="2" VerticalAlignment="Stretch" Click="button_stop_Click"/>
+            <Button x:Name="buttonDown" Grid.Column="1" HorizontalAlignment="Stretch" Margin="11.4,15,10.4,10" Grid.Row="3" VerticalAlignment="Stretch" Click="button_backward_Click">
+                <Image Source="Assets/ButtonImages/down.png"/>
+            </Button>
+            <Button x:Name="buttonRight" Grid.Column="2" HorizontalAlignment="Stretch" Margin="9.6,10,9.8,10" Grid.Row="2" VerticalAlignment="Stretch" Click="button_right_Click">
+                <Image Source="Assets/ButtonImages/right.png"/>
+            </Button>
+            <Button x:Name="buttonUp" Grid.Column="1" HorizontalAlignment="Stretch" Margin="8.4,10,9.4,10" VerticalAlignment="Stretch" Grid.Row="1" Click="button_forward_Click">
+                <Image Source="Assets/ButtonImages/up.png"/>
+            </Button>
+            <Button x:Name="buttonLeft" HorizontalAlignment="Stretch" Margin="10,10,11.6,10" Grid.Row="2" VerticalAlignment="Stretch" Click="button_left_Click">
+                <Image Source="Assets/ButtonImages/left.png"/>
+            </Button>
+            <Button x:Name="buttonA" Grid.Column="4" HorizontalAlignment="Stretch" Margin="10.8,11,11,10" Grid.Row="2" VerticalAlignment="Stretch">
+                <Image Source="Assets/ButtonImages/down.png"/>
+            </Button>
+            <Button x:Name="buttonB" Grid.Column="5" HorizontalAlignment="Stretch" Margin="10,10,11,0" Grid.Row="1" VerticalAlignment="Top" Height="140">
+                <Image Source="Assets/ButtonImages/down.png"/>
+            </Button>
+        </Grid>
+    </Viewbox>
+    </Grid>
+</Page>
