@@ -40,7 +40,9 @@ git clone --recursive https://github.com/ms-iot/cobra-rover.git
 - On your PC run the UWPRobotController
   - Pick sockets in the drop down
   - Type in the correct socket address e.g.
+  
     > ws://localhost:8080
+
   - You should now be able to press the forward button and see the server print out the command and tell you to connect the robot.
   
 ### Using WiFi Direct
