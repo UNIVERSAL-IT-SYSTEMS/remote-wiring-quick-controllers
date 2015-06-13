@@ -31,6 +31,10 @@ git clone --recursive https://github.com/ms-iot/cobra-rover.git
 
 ### Using Sockets
 - Navigate to the directory where you cloned this repository and then go to the `RoverServer` folder. This folder contains a small Node.js server that allows the robot and controller to connect.
+  - Intall dependencies (run once)
+  ```
+  npm install
+  ```
   - To run this server from the command line type
   ```
   node server.js
