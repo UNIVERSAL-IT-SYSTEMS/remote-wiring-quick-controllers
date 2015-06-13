@@ -36,7 +36,7 @@ namespace UWPRobotController
         private void RefreshDeviceList()
         {
             //invoke the listAvailableDevicesAsync method of BluetoothSerial. Since it is Async, we will wrap it in a Task and add a llambda to execute when finished
-            DfRobotBleSerial.listAvailableDevicesAsync().AsTask<DeviceInformationCollection>().ContinueWith(listTask =>
+            BluetoothSerial.listAvailableDevicesAsync().AsTask<DeviceInformationCollection>().ContinueWith(listTask =>
             {
                 //store the result and populate the device list on the UI thread
                 var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
@@ -67,7 +67,7 @@ namespace UWPRobotController
                 var device = selectedConnection.Source as DeviceInformation;
 
                 //construct the bluetooth serial object with the specified device
-                App.bluetooth = new DfRobotBleSerial(device);
+                App.bluetooth = new BluetoothSerial(device);
 
                 App.bluetooth.ConnectionEstablished += Bluetooth_ConnectionEstablished;
                 App.bluetooth.ConnectionFailed += Bluetooth_ConnectionFailed;

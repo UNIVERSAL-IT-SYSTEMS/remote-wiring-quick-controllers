@@ -23,9 +23,6 @@ namespace UWPRobotController
             for (byte i = 4; i <= 7; i++)
                 App.arduino.pinMode(i, PinMode.OUTPUT);
 
-            App.arduino.pinMode(2, PinMode.OUTPUT);
-            App.arduino.digitalWrite(2, PinState.HIGH);
-
         }
 
         public void forward(byte a, byte b)
