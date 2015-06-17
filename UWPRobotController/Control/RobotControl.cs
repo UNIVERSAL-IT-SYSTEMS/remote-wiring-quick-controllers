@@ -17,11 +17,14 @@ namespace UWPRobotController
         byte M2 = 0x07;
 
 
+
         public RobotControl()
         {
             // setup
-            for (byte i = 4; i <= 7; i++)
-                App.arduino.pinMode(i, PinMode.OUTPUT);
+            App.arduino.pinMode(E1, PinMode.OUTPUT);
+            App.arduino.pinMode(E2, PinMode.OUTPUT);
+            App.arduino.pinMode(M1, PinMode.OUTPUT);
+            App.arduino.pinMode(M2, PinMode.OUTPUT);
 
         }
 

@@ -30,7 +30,7 @@ namespace UWPRobotController
     /// </summary>
     sealed partial class App : Application
     {
-        public static BluetoothSerial bluetooth;
+        public static DfRobotBleSerial bluetooth;
         public static RemoteDevice arduino;
 
         // Command socket

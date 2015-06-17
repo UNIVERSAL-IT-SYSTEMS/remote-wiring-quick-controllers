@@ -36,19 +36,38 @@ namespace UWPRobotController
         private void RefreshDeviceList()
         {
             //invoke the listAvailableDevicesAsync method of BluetoothSerial. Since it is Async, we will wrap it in a Task and add a llambda to execute when finished
-            BluetoothSerial.listAvailableDevicesAsync().AsTask<DeviceInformationCollection>().ContinueWith(listTask =>
+            if (comboBox.SelectedValue.Equals("Bluetooth LE"))
             {
+                DfRobotBleSerial.listAvailableDevicesAsync().AsTask<DeviceInformationCollection>().ContinueWith(listTask =>
+                {
                 //store the result and populate the device list on the UI thread
                 var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
-                {
-                    _connections = new ObservableCollection<Connection>();
-                    foreach (DeviceInformation device in listTask.Result)
                     {
-                        _connections.Add(new Connection(device.Name, device));
-                    }
-                    connectList.ItemsSource = _connections;
-                }));
-            });
+                        _connections = new ObservableCollection<Connection>();
+                        foreach (DeviceInformation device in listTask.Result)
+                        {
+                            _connections.Add(new Connection(device.Name, device));
+                        }
+                        connectList.ItemsSource = _connections;
+                    }));
+                });
+            }
+            else if (comboBox.SelectedValue.Equals("Bluetooth RFCOMM"))
+            {
+                BluetoothSerial.listAvailableDevicesAsync().AsTask<DeviceInformationCollection>().ContinueWith(listTask =>
+                {
+                //store the result and populate the device list on the UI thread
+                var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
+                    {
+                        _connections = new ObservableCollection<Connection>();
+                        foreach (DeviceInformation device in listTask.Result)
+                        {
+                            _connections.Add(new Connection(device.Name, device));
+                        }
+                        connectList.ItemsSource = _connections;
+                    }));
+                });
+            }
         }
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
@@ -67,7 +86,7 @@ namespace UWPRobotController
                 var device = selectedConnection.Source as DeviceInformation;
 
                 //construct the bluetooth serial object with the specified device
-                App.bluetooth = new BluetoothSerial(device);
+                App.bluetooth = new DfRobotBleSerial(device);
 
                 App.bluetooth.ConnectionEstablished += Bluetooth_ConnectionEstablished;
                 App.bluetooth.ConnectionFailed += Bluetooth_ConnectionFailed;
@@ -112,8 +131,6 @@ namespace UWPRobotController
                 Refresh.IsEnabled = enabled;
             }));
         }
-
-
 
     }
 }
