@@ -109,7 +109,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Control\RobotControl.cs" />
     <Compile Include="RobotDirect.cs" />
-    <Compile Include="VideoStream.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

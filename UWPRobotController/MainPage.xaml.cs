@@ -48,6 +48,8 @@ namespace UWPRobotController
             {
                 var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
                 {
+                    this.Frame.Navigate(typeof(ArduinoConnectionPage));
+                    /*
                     if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
                     {
                         this.Frame.Navigate(typeof(ArduinoConnectionPage));
@@ -56,14 +58,19 @@ namespace UWPRobotController
                     {
                         this.Frame.Navigate(typeof(ControllerConnectionPage));
                     }
+                    */
                 }
                 ));
 
             }
             else
             {
+                isRobot = true;
+                setupRobot();
+                enableButtons(true);
+                /*
                 // robot will always be on mobile device
-                if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
                 {
                     isRobot = true;
                     setupRobot();
@@ -75,6 +82,7 @@ namespace UWPRobotController
                     setupController();
                     enableButtons(true);
                 }
+                */
             }
        }
 
@@ -253,6 +261,7 @@ namespace UWPRobotController
             Frame.Navigate(typeof(ArduinoConnectionPage));
         }
 
+
         /// <summary>
         /// Enables or disables buttons
         /// </summary>
@@ -265,6 +274,5 @@ namespace UWPRobotController
             buttonRight.IsEnabled = enable;
             buttonStop.IsEnabled = enable;
         }
-
     }
 }

@@ -16,8 +16,6 @@ namespace UWPRobotController
         byte M1 = 0x04;
         byte M2 = 0x07;
 
-
-
         public RobotControl()
         {
             // setup
@@ -30,34 +28,34 @@ namespace UWPRobotController
 
         public void forward(byte a, byte b)
         {
-            App.arduino.analogWrite(E1, a);      //PWM Speed Control
             App.arduino.digitalWrite(M1, PinState.HIGH);
-            App.arduino.analogWrite(E2, b);
             App.arduino.digitalWrite(M2, PinState.HIGH);
+            App.arduino.analogWrite(E1, a);      //PWM Speed Control
+            App.arduino.analogWrite(E2, b);
         }
 
         public void backward(byte a, byte b)
         {
-            App.arduino.analogWrite(E1, a);
             App.arduino.digitalWrite(M1, PinState.LOW);
-            App.arduino.analogWrite(E2, b);
             App.arduino.digitalWrite(M2, PinState.LOW);
+            App.arduino.analogWrite(E1, a);
+            App.arduino.analogWrite(E2, b);
         }
 
         public void left(byte a, byte b)
         {
-            App.arduino.analogWrite(E1, a);
             App.arduino.digitalWrite(M1, PinState.LOW);
-            App.arduino.analogWrite(E2, b);
             App.arduino.digitalWrite(M2, PinState.HIGH);
+            App.arduino.analogWrite(E1, a);
+            App.arduino.analogWrite(E2, b);
         }
 
         public void right(byte a, byte b)
         {
-            App.arduino.analogWrite(E1, a);
             App.arduino.digitalWrite(M1, PinState.HIGH);
-            App.arduino.analogWrite(E2, b);
             App.arduino.digitalWrite(M2, PinState.LOW);
+            App.arduino.analogWrite(E1, a);
+            App.arduino.analogWrite(E2, b);
         }
 
         public void stop()

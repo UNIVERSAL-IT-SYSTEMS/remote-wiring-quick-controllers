@@ -45,63 +45,19 @@
   <Capabilities>
     <Capability Name="internetClient" />
 
-    <DeviceCapability Name="bluetooth.rfcomm">
-      <Device Id="any">
-        <Function Type="name:serialPort"/>
-      </Device>
-    </DeviceCapability>
+    <!-- for some reason only rfcomm or gatt can be picked not both on surface -->
 
     <!--DeviceCapability Name="bluetooth.rfcomm">
-
       <Device Id="any">
-
         <Function Type="name:serialPort"/>
-
       </Device>
-
     </DeviceCapability-->
 
-
-
     <DeviceCapability Name="bluetooth.genericAttributeProfile">
-
       <Device Id="any">
-
-        <!-- Generic Access -->
-
-
-
-        <!-- https://developer.bluetooth.org/gatt/services/Pages/ServiceViewer.aspx?u=org.bluetooth.service.generic_access.xml -->
-
-        <!--Function Type="serviceId:00001800-0000-1000-8000-00805f9b34fb" /-->
-
-
-
-    <Function Type="name:genericAccess" />
-
-    <!-- Generic Attribute -->
-
-
-
-          <!-- https://developer.bluetooth.org/gatt/services/Pages/ServiceViewer.aspx?u=org.bluetooth.service.generic_attribute.xml -->
-
-        <!-- Function Type="serviceId:00001801-0000-1000-8000-00805f9b34fb" /-->
-
-        <Function Type="name:genericAttribute" /> <!-- Device Information -->
-
-
-
-          <!-- https://developer.bluetooth.org/gatt/services/Pages/ServiceViewer.aspx?u=org.bluetooth.service.device_information.xml -->
-
-        <!-- Function Type="serviceId:0000180A-0000-1000-8000-00805f9b34fb" /-->
-
-
-
-        <Function Type="name:deviceInformation" />
+        <Function Type="name:genericAccess" />
       </Device>
-
     </DeviceCapability>
-
 
   </Capabilities>
 </Package>
