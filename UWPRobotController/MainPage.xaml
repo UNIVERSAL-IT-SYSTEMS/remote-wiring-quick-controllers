@@ -43,10 +43,10 @@
                 <Image Source="Assets/ButtonImages/left.png"/>
             </Button>
             <Button x:Name="buttonA" Grid.Column="4" HorizontalAlignment="Stretch" Margin="10.8,11,11,10" Grid.Row="2" VerticalAlignment="Stretch">
-                <Image Source="Assets/ButtonImages/down.png"/>
+                <Image Source="Assets/ButtonImages/headlights.png"/>
             </Button>
             <Button x:Name="buttonB" Grid.Column="5" HorizontalAlignment="Stretch" Margin="10,10,11,0" Grid.Row="1" VerticalAlignment="Top" Height="140">
-                <Image Source="Assets/ButtonImages/down.png"/>
+                <Image Source="Assets/ButtonImages/sound.png"/>
             </Button>
         </Grid>
     </Viewbox>
