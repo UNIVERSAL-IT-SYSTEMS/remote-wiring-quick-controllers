@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Maker.Serial;
-using Microsoft.Maker.RemoteWiring;
+﻿using Microsoft.Maker.RemoteWiring;
 
 namespace UWPRobotController
 {
@@ -19,49 +13,83 @@ namespace UWPRobotController
         public RobotControl()
         {
             // setup
-            App.arduino.pinMode(E1, PinMode.OUTPUT);
-            App.arduino.pinMode(E2, PinMode.OUTPUT);
+            App.arduino.pinMode(E1, PinMode.PWM);
+            App.arduino.pinMode(E2, PinMode.PWM);
             App.arduino.pinMode(M1, PinMode.OUTPUT);
             App.arduino.pinMode(M2, PinMode.OUTPUT);
-
         }
 
         public void forward(byte a, byte b)
         {
-            App.arduino.digitalWrite(M1, PinState.HIGH);
-            App.arduino.digitalWrite(M2, PinState.HIGH);
-            App.arduino.analogWrite(E1, a);      //PWM Speed Control
-            App.arduino.analogWrite(E2, b);
+            App.firmata.@lock();
+            App.firmata.write(0x90);
+            App.firmata.write(0x10);
+            App.firmata.write(0x01);
+
+            App.firmata.write(0xE5);
+            App.firmata.sendValueAsTwo7bitBytes(a);
+            App.firmata.write(0xE6);
+            App.firmata.sendValueAsTwo7bitBytes(b);
+
+            App.firmata.flush();
+            App.firmata.@unlock();
         }
 
         public void backward(byte a, byte b)
         {
-            App.arduino.digitalWrite(M1, PinState.LOW);
-            App.arduino.digitalWrite(M2, PinState.LOW);
-            App.arduino.analogWrite(E1, a);
-            App.arduino.analogWrite(E2, b);
+            App.firmata.@lock();
+            App.firmata.write(0x90);
+            App.firmata.write(0x00);
+            App.firmata.write(0x00);
+
+            App.firmata.write(0xE5);
+            App.firmata.sendValueAsTwo7bitBytes(a);
+            App.firmata.write(0xE6);
+            App.firmata.sendValueAsTwo7bitBytes(b);
+            App.firmata.flush();
+            App.firmata.@unlock();
+
         }
 
         public void left(byte a, byte b)
         {
-            App.arduino.digitalWrite(M1, PinState.LOW);
-            App.arduino.digitalWrite(M2, PinState.HIGH);
-            App.arduino.analogWrite(E1, a);
-            App.arduino.analogWrite(E2, b);
+            App.firmata.@lock();
+            App.firmata.write(0x90);
+            App.firmata.write(0x00);
+            App.firmata.write(0x01);
+
+            App.firmata.write(0xE5);
+            App.firmata.sendValueAsTwo7bitBytes(a);
+            App.firmata.write(0xE6);
+            App.firmata.sendValueAsTwo7bitBytes(b);
+            App.firmata.flush();
+            App.firmata.@unlock();
         }
 
         public void right(byte a, byte b)
         {
-            App.arduino.digitalWrite(M1, PinState.HIGH);
-            App.arduino.digitalWrite(M2, PinState.LOW);
-            App.arduino.analogWrite(E1, a);
-            App.arduino.analogWrite(E2, b);
+            App.firmata.@lock();
+            App.firmata.write(0x90);
+            App.firmata.write(0x10);
+            App.firmata.write(0x00);
+
+            App.firmata.write(0xE5);
+            App.firmata.sendValueAsTwo7bitBytes(a);
+            App.firmata.write(0xE6);
+            App.firmata.sendValueAsTwo7bitBytes(b);
+            App.firmata.flush();
+            App.firmata.@unlock();
         }
 
         public void stop()
         {
-            App.arduino.digitalWrite(E1, PinState.LOW);
-            App.arduino.digitalWrite(E2, PinState.LOW);
+            App.firmata.@lock();
+            App.firmata.write(0xE5);
+            App.firmata.sendValueAsTwo7bitBytes(0x00);
+            App.firmata.write(0xE6);
+            App.firmata.sendValueAsTwo7bitBytes(0x00);
+            App.firmata.flush();
+            App.firmata.@unlock();
         }
     }
 }
