@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UWPRobotController.Comm
+﻿namespace UWPRobotController.Comm
 {
     public class Connection
     {
@@ -13,8 +7,8 @@ namespace UWPRobotController.Comm
 
         public Connection(string displayName, object source)
         {
-            this.DisplayName = displayName;
-            this.Source = source;
+            DisplayName = displayName;
+            Source = source;
         }
     }
 }
