@@ -23,8 +23,8 @@ namespace UWPRobotController
         {
             App.firmata.@lock();
             App.firmata.write(0x90);
-            App.firmata.write(0x10);
-            App.firmata.write(0x01);
+            App.firmata.write(0x00);
+            App.firmata.write(0x00);
 
             App.firmata.write(0xE5);
             App.firmata.sendValueAsTwo7bitBytes(a);
@@ -39,8 +39,8 @@ namespace UWPRobotController
         {
             App.firmata.@lock();
             App.firmata.write(0x90);
-            App.firmata.write(0x00);
-            App.firmata.write(0x00);
+            App.firmata.write(0x10);
+            App.firmata.write(0x01);
 
             App.firmata.write(0xE5);
             App.firmata.sendValueAsTwo7bitBytes(a);
