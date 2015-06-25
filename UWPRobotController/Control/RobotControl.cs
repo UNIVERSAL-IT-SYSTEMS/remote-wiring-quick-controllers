@@ -91,5 +91,17 @@ namespace UWPRobotController
             App.firmata.flush();
             App.firmata.@unlock();
         }
+
+        bool isLaserOn = false;
+
+        public void activateLaser()
+        {
+            App.arduino.pinMode(13, PinMode.OUTPUT);
+            if (isLaserOn)
+                App.arduino.digitalWrite(13, PinState.LOW);
+            else
+                App.arduino.digitalWrite(13, PinState.HIGH);
+            isLaserOn = !isLaserOn;
+        }
     }
 }

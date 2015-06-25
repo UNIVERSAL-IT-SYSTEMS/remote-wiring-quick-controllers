@@ -42,7 +42,7 @@
             <Button x:Name="buttonLeft" HorizontalAlignment="Stretch" Margin="10,10,11.6,10" Grid.Row="2" VerticalAlignment="Stretch" Click="button_left_Click">
                 <Image Source="Assets/ButtonImages/left.png"/>
             </Button>
-            <Button x:Name="buttonA" Grid.Column="4" HorizontalAlignment="Stretch" Margin="10.8,11,11,10" Grid.Row="2" VerticalAlignment="Stretch">
+            <Button x:Name="buttonA" Grid.Column="4" HorizontalAlignment="Stretch" Margin="10.8,11,11,10" Grid.Row="2" VerticalAlignment="Stretch" Click="buttonA_Click">
                 <Image Source="Assets/ButtonImages/headlights.png"/>
             </Button>
             <Button x:Name="buttonB" Grid.Column="5" HorizontalAlignment="Stretch" Margin="10,10,11,0" Grid.Row="1" VerticalAlignment="Top" Height="140">

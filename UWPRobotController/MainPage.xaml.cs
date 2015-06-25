@@ -6,6 +6,8 @@ using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 using UWPRobotController.Control;
 using Windows.Data.Json;
+using Windows.System.Profile;
+using Microsoft.Maker.RemoteWiring;
 
 namespace UWPRobotController
 {
@@ -221,7 +223,7 @@ namespace UWPRobotController
 
         private void button_forward_Click(object sender, RoutedEventArgs e)
         {
-            control.forward(255, 255);
+            control.forward(200, 200);
         }
 
         private void button_stop_Click(object sender, RoutedEventArgs e)
@@ -231,17 +233,17 @@ namespace UWPRobotController
 
         private void button_left_Click(object sender, RoutedEventArgs e)
         {
-            control.right(255, 255);
+            control.right(130, 130);
         }
 
         private void button_right_Click(object sender, RoutedEventArgs e)
         {
-            control.left(255, 255);
+            control.left(130, 130);
         }
 
         private void button_backward_Click(object sender, RoutedEventArgs e)
         {
-            control.backward(255, 255);
+            control.backward(200, 200);
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
@@ -249,6 +251,16 @@ namespace UWPRobotController
             Frame.Navigate(typeof(ArduinoConnectionPage));
         }
 
+
+        private void buttonA_Click(object sender, RoutedEventArgs e)
+        {
+            ((RobotControl)control).activateLaser();   
+        }
+
+        private void buttonB_Click(object sender, RoutedEventArgs e)
+        {
+            // add cool functionality here! 
+        }
 
         /// <summary>
         /// Enables or disables buttons
