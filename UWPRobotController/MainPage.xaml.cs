@@ -6,8 +6,6 @@ using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 using UWPRobotController.Control;
 using Windows.Data.Json;
-using Windows.System.Profile;
-using Microsoft.Maker.RemoteWiring;
 
 namespace UWPRobotController
 {
@@ -223,7 +221,7 @@ namespace UWPRobotController
 
         private void button_forward_Click(object sender, RoutedEventArgs e)
         {
-            control.forward(200, 200);
+            control.forward(255, 255);
         }
 
         private void button_stop_Click(object sender, RoutedEventArgs e)
@@ -233,17 +231,17 @@ namespace UWPRobotController
 
         private void button_left_Click(object sender, RoutedEventArgs e)
         {
-            control.right(130, 130);
+            control.left(127, 127);
         }
 
         private void button_right_Click(object sender, RoutedEventArgs e)
         {
-            control.left(130, 130);
+            control.right(127, 127);
         }
 
         private void button_backward_Click(object sender, RoutedEventArgs e)
         {
-            control.backward(200, 200);
+            control.backward(255, 255);
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
