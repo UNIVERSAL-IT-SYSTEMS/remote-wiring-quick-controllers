@@ -189,11 +189,5 @@ namespace UWPRobotController
                 Refresh.IsEnabled = enabled;
             }));
         }
-
-        private void Skip_Click(object sender, RoutedEventArgs e)
-        {
-            App.setupComplete = true;
-            Frame.Navigate(typeof(MainPage));
-        }
     }
 }

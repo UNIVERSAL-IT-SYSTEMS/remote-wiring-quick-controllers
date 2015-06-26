@@ -17,7 +17,6 @@
         <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal">
             <Button x:Uid="Connect" x:Name="Reconnect" Click="Reconnect_Click" HorizontalAlignment="Center" Margin="20,0,0,10">Connect</Button>
             <Button x:Uid="RefreshBtn" x:Name="Refresh" Click="Refresh_Click" HorizontalAlignment="Right" Margin="10,0,20,10">Refresh</Button>
-            <Button x:Uid="SkipBtn" x:Name="Skip" Click="Skip_Click" HorizontalAlignment="Right" Margin="10,0,20,10">Skip</Button>
         </StackPanel>
     </Grid>
 </Page>

@@ -120,8 +120,6 @@
     <Content Include="Assets\ButtonImages\down.png" />
     <Content Include="Assets\ButtonImages\headlights.png" />
     <Content Include="Assets\ButtonImages\left.png" />
-    <Content Include="Assets\ButtonImages\dpad.png" />
-    <Content Include="Assets\ButtonImages\tank.png" />
     <Content Include="Assets\ButtonImages\right.png" />
     <Content Include="Assets\ButtonImages\sound.png" />
     <Content Include="Assets\ButtonImages\up.png" />
