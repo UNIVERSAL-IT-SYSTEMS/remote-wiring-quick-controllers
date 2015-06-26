@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="UWPRobotController.TankControlPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPRobotController"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Sync" Label="Re-connect" Click="Reconnect_Click"/>
+            <AppBarButton Icon="Directions" Label="D-PAD Controller" Click="DpadController_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="43*"/>
+            <RowDefinition Height="99*"/>
+            <RowDefinition Height="77*"/>
+            <RowDefinition Height="99*"/>
+            <RowDefinition Height="42*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="102*"/>
+            <ColumnDefinition Width="161*"/>
+            <ColumnDefinition Width="115*"/>
+            <ColumnDefinition Width="160*"/>
+            <ColumnDefinition Width="102*"/>
+        </Grid.ColumnDefinitions>
+        <Slider x:Name="left_motor"  Orientation="Vertical" Grid.Row="1" TickPlacement="Outside" Maximum="255" Minimum="-255" TickFrequency="64" StepFrequency="64" ValueChanged="left_motor_ValueChanged" Grid.Column="1" HorizontalAlignment="Left" Width="40" Grid.RowSpan="3" />
+        <Slider x:Name="right_motor"  Orientation="Vertical" Grid.Column="3" Grid.Row="1" Maximum="255" Minimum="-255" TickFrequency="64" TickPlacement="Outside" StepFrequency="64" LargeChange="30" ValueChanged="right_motor_ValueChanged" HorizontalAlignment="Right" Width="40" Grid.RowSpan="3" />
+        <Button x:Name="buttonA" Grid.Column="2" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3" VerticalAlignment="Stretch" >
+            <Image Source="Assets/ButtonImages/headlights.png"/>
+        </Button>
+        <Button x:Name="buttonB" Grid.Column="2" HorizontalAlignment="Stretch" Margin="10" Grid.Row="1" VerticalAlignment="Stretch">
+            <Image Source="Assets/ButtonImages/sound.png"/>
+        </Button>
+
+    </Grid>
+</Page>
