@@ -26,10 +26,7 @@ namespace UWPRobotController
         public static UwpFirmata firmata;
         public static RemoteDevice arduino;
 
-        // Command socket
-        public static MessageWebSocket commandSock;
-        public static DataWriter commandWriter;
-
+        // ensure connection before we show controls
         public static bool setupComplete;
        
         /// <summary>

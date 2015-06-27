@@ -34,9 +34,8 @@
         <Button x:Name="buttonA" Grid.Column="2" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3" VerticalAlignment="Stretch" >
             <Image Source="Assets/ButtonImages/headlights.png"/>
         </Button>
-        <Button x:Name="buttonB" Grid.Column="2" HorizontalAlignment="Stretch" Margin="10" Grid.Row="1" VerticalAlignment="Stretch">
-            <Image Source="Assets/ButtonImages/sound.png"/>
+        <!-- Extra button for user configuration -->
+        <Button x:Name="buttonB" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Stretch" Margin="10" Grid.Row="1" VerticalAlignment="Stretch" >
         </Button>
-
     </Grid>
 </Page>

@@ -47,8 +47,8 @@
                 <Button x:Name="buttonA" Grid.Column="4" HorizontalAlignment="Stretch" Margin="10.333,11,11.333,10" Grid.Row="2" VerticalAlignment="Stretch" Click="buttonA_Click">
                     <Image Source="Assets/ButtonImages/headlights.png"/>
                 </Button>
-                <Button x:Name="buttonB" Grid.Column="5" HorizontalAlignment="Stretch" Margin="9.667,10,11,0" Grid.Row="1" VerticalAlignment="Top" Height="140">
-                    <Image Source="Assets/ButtonImages/sound.png"/>
+                <!-- Extra button for user configuration -->
+                <Button x:Name="buttonB" IsEnabled="False" Grid.Column="5" HorizontalAlignment="Stretch" Margin="9.667,10,11,0" Grid.Row="1" VerticalAlignment="Top" Height="140" >
                 </Button>
             </Grid>
         </Viewbox>

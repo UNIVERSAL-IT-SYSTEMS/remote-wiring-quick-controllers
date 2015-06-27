@@ -1,11 +1,15 @@
 ﻿using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Navigation;
+
+using Windows.System.Threading;
 
 namespace UWPRobotController
 {
     public sealed partial class TankControlPage : Page
     {
+        DispatcherTimer timer;
         private int left;
         private int right;
 
@@ -14,38 +18,56 @@ namespace UWPRobotController
             this.InitializeComponent();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            // set up timer
+            timer = new DispatcherTimer();
+            timer.Tick += Timer_Tick;
+            timer.Interval = new TimeSpan(0,0,0,0,150);
+            timer.Start();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            // stop the timer
+            timer.Stop();
+        }
+
         private void right_motor_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
-            right = (int)e.NewValue;
-            updateControl();
         }
 
         private void left_motor_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
-            left = (int)e.NewValue;
-            updateControl();
         }
 
-        public void updateControl()
+        private void Timer_Tick(object sender, object e)
         {
-            byte a = (byte)Math.Abs(left);
-            byte b = (byte)Math.Abs(right);
+            left = (int)left_motor.Value;
+            right = (int)right_motor.Value;
+
+            byte l = (byte)Math.Abs(left_motor.Value);
+            byte r = (byte)Math.Abs(right_motor.Value);
 
             if (right >= 0 && left >= 0)
             {
-                App.control.forward(a, b);
+                App.control.forward(l, r);
             }
             else if (right <= 0 && left <= 0)
             {
-                App.control.backward(a, b);
+                App.control.backward(l, r);
             }
             else if (right >= 0 && left <= 0)
             {
-                App.control.left(a, b);
+                App.control.left(l, r);
             }
             else if (right <= 0 && left >= 0)
             {
-                App.control.right(a, b);
+                App.control.right(l, r);
             }
             if (right == 0 && left == 0)
                 App.control.stop();

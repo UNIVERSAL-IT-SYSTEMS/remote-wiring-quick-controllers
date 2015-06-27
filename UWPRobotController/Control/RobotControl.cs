@@ -19,7 +19,7 @@ namespace UWPRobotController
             App.arduino.pinMode(M2, PinMode.OUTPUT);
         }
 
-        public void forward(byte a, byte b)
+        public void forward(byte l, byte r)
         {
             App.firmata.@lock();
             App.firmata.write(0x90);
@@ -27,15 +27,15 @@ namespace UWPRobotController
             App.firmata.write(0x00);
 
             App.firmata.write(0xE5);
-            App.firmata.sendValueAsTwo7bitBytes(a);
+            App.firmata.sendValueAsTwo7bitBytes(r);
             App.firmata.write(0xE6);
-            App.firmata.sendValueAsTwo7bitBytes(b);
+            App.firmata.sendValueAsTwo7bitBytes(l);
 
             App.firmata.flush();
             App.firmata.@unlock();
         }
 
-        public void backward(byte a, byte b)
+        public void backward(byte l, byte r)
         {
             App.firmata.@lock();
             App.firmata.write(0x90);
@@ -43,15 +43,15 @@ namespace UWPRobotController
             App.firmata.write(0x01);
 
             App.firmata.write(0xE5);
-            App.firmata.sendValueAsTwo7bitBytes(a);
+            App.firmata.sendValueAsTwo7bitBytes(r);
             App.firmata.write(0xE6);
-            App.firmata.sendValueAsTwo7bitBytes(b);
+            App.firmata.sendValueAsTwo7bitBytes(l);
             App.firmata.flush();
             App.firmata.@unlock();
 
         }
 
-        public void left(byte a, byte b)
+        public void left(byte l, byte r)
         {
             App.firmata.@lock();
             App.firmata.write(0x90);
@@ -59,14 +59,14 @@ namespace UWPRobotController
             App.firmata.write(0x01);
 
             App.firmata.write(0xE5);
-            App.firmata.sendValueAsTwo7bitBytes(a);
+            App.firmata.sendValueAsTwo7bitBytes(r);
             App.firmata.write(0xE6);
-            App.firmata.sendValueAsTwo7bitBytes(b);
+            App.firmata.sendValueAsTwo7bitBytes(l);
             App.firmata.flush();
             App.firmata.@unlock();
         }
 
-        public void right(byte a, byte b)
+        public void right(byte l, byte r)
         {
             App.firmata.@lock();
             App.firmata.write(0x90);
@@ -74,9 +74,9 @@ namespace UWPRobotController
             App.firmata.write(0x00);
 
             App.firmata.write(0xE5);
-            App.firmata.sendValueAsTwo7bitBytes(a);
+            App.firmata.sendValueAsTwo7bitBytes(r);
             App.firmata.write(0xE6);
-            App.firmata.sendValueAsTwo7bitBytes(b);
+            App.firmata.sendValueAsTwo7bitBytes(l);
             App.firmata.flush();
             App.firmata.@unlock();
         }

@@ -28,6 +28,7 @@ namespace UWPRobotController
             comboBox.ItemsSource = options;
         }
 
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -49,6 +50,13 @@ namespace UWPRobotController
                                 _connections.Add(new Connection(device.Name, device));
                             }
                             connectList.ItemsSource = _connections;
+
+                            // autoconnect if only 1 device is paired
+                            if (_connections.Count == 1)
+                            {
+                                connectList.SelectedItem = _connections[0];
+                                Reconnect_Click(null, null);
+                            }
                         }));
                     });
                 }
@@ -64,9 +72,18 @@ namespace UWPRobotController
                                 _connections.Add(new Connection(device.Name, device));
                             }
                             connectList.ItemsSource = _connections;
+
+                            // autoconnect if only 1 device is paired
+                            if (_connections.Count == 1)
+                            {
+                                connectList.SelectedItem = _connections[0];
+                                Reconnect_Click(null, null);
+                            }
                         }));
                     });
                 }
+
+                
             }
         }
 
@@ -84,6 +101,7 @@ namespace UWPRobotController
 
                 var selectedConnection = connectList.SelectedItem as Connection;
                 var device = selectedConnection.Source as DeviceInformation;
+
 
                 //construct the bluetooth serial object with the specified device
                 if (comboBox.SelectedValue.Equals("Bluetooth"))
@@ -188,6 +206,11 @@ namespace UWPRobotController
                 Reconnect.IsEnabled = enabled;
                 Refresh.IsEnabled = enabled;
             }));
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshDeviceList();
         }
     }
 }
