@@ -2,7 +2,7 @@
 
 namespace UWPRobotController
 {
-    public class RobotControl : IControl
+    public class RomeoControl : IControl
     {
 
         byte E1 = 0x05;
@@ -10,7 +10,7 @@ namespace UWPRobotController
         byte M1 = 0x04;
         byte M2 = 0x07;
 
-        public RobotControl()
+        public RomeoControl()
         {
             // setup
             App.arduino.pinMode(E1, PinMode.PWM);

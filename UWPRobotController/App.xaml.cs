@@ -21,7 +21,7 @@ namespace UWPRobotController
     /// </summary>
     sealed partial class App : Application
     {
-        public static RobotControl control;
+        public static RomeoControl control;
         public static IStream bluetooth;
         public static UwpFirmata firmata;
         public static RemoteDevice arduino;

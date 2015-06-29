@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Navigation;
 
 using Windows.System.Threading;
 
-namespace UWPRobotController
+namespace UWPRobotController.Interfaces
 {
     public sealed partial class TankControlPage : Page
     {
@@ -21,31 +21,24 @@ namespace UWPRobotController
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            // set up timer
-            timer = new DispatcherTimer();
-            timer.Tick += Timer_Tick;
-            timer.Interval = new TimeSpan(0,0,0,0,150);
-            timer.Start();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-
-            // stop the timer
-            timer.Stop();
         }
 
         private void right_motor_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
+            UpdateControls();
         }
 
         private void left_motor_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
+            UpdateControls();
         }
 
-        private void Timer_Tick(object sender, object e)
+        private void UpdateControls()
         {
             left = (int)left_motor.Value;
             right = (int)right_motor.Value;
@@ -73,12 +66,7 @@ namespace UWPRobotController
                 App.control.stop();
         }
 
-        private void Reconnect_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(ArduinoConnectionPage));
-        }
-
-        private void DpadController_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
         }

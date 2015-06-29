@@ -1,4 +1,7 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using System.Collections.ObjectModel;
+using UWPRobotController.Interfaces;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -13,9 +16,6 @@ namespace UWPRobotController
         public MainPage()
         {
             this.InitializeComponent();
-
-            // disable buttons until we're connected to the robot
-            enableButtons(false);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -35,66 +35,38 @@ namespace UWPRobotController
             else
             {
                 // Create robot control interface
-                App.control = new RobotControl();
-                enableButtons(true);
+                App.control = new RomeoControl();
             }
+
+            Collection<String> controllers = new Collection<string>();
+            controllers.Add("Dpad Controller");
+            controllers.Add("Tank Controller");
+            // Add new controllers here
+
+            listBox.ItemsSource = controllers;
         }
 
-        private void button_forward_Click(object sender, RoutedEventArgs e)
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            App.control.forward(255, 255);
-        }
-
-        private void button_stop_Click(object sender, RoutedEventArgs e)
-        {
-            App.control.stop();
-        }
-
-        private void button_left_Click(object sender, RoutedEventArgs e)
-        {
-            App.control.left(127, 127);
-        }
-
-        private void button_right_Click(object sender, RoutedEventArgs e)
-        {
-            App.control.right(127, 127);
-        }
-
-        private void button_backward_Click(object sender, RoutedEventArgs e)
-        {
-            App.control.backward(255, 255);
+            var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
+            {
+                switch (listBox.SelectedValue.ToString())
+                {
+                    case "Dpad Controller":
+                        this.Frame.Navigate(typeof(DpadControlPage));
+                        break;
+                    case "Tank Controller":
+                        this.Frame.Navigate(typeof(TankControlPage));
+                        break;
+                    // add case for new controllers
+                }
+            }
+            ));
         }
 
         private void Reconnect_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(ArduinoConnectionPage));
-        }
-        private void TankController_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(TankControlPage));
-        }
-
-        private void buttonA_Click(object sender, RoutedEventArgs e)
-        {
-            ((RobotControl)App.control).activateLaser();   
-        }
-
-        private void buttonB_Click(object sender, RoutedEventArgs e)
-        {
-            // add cool functionality here! 
-        }
-
-        /// <summary>
-        /// Enables or disables buttons
-        /// </summary>
-        /// <param name="enable"></param>
-        private void enableButtons(bool enable)
-        {
-            buttonUp.IsEnabled = enable;
-            buttonDown.IsEnabled = enable;
-            buttonLeft.IsEnabled = enable;
-            buttonRight.IsEnabled = enable;
-            buttonStop.IsEnabled = enable;
         }
     }
 }
