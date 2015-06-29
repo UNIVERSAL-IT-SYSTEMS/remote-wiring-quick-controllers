@@ -45,10 +45,19 @@
   <Capabilities>
     <Capability Name="internetClient" />
 
-    <DeviceCapability Name="bluetooth.rfcomm">
+    <!-- for some reason only rfcomm or gatt can be picked not both on surface -->
+
+    <!--DeviceCapability Name="bluetooth.rfcomm">
       <Device Id="any">
         <Function Type="name:serialPort"/>
       </Device>
+    </DeviceCapability-->
+
+    <DeviceCapability Name="bluetooth.genericAttributeProfile">
+      <Device Id="any">
+        <Function Type="name:genericAccess" />
+      </Device>
     </DeviceCapability>
+
   </Capabilities>
 </Package>

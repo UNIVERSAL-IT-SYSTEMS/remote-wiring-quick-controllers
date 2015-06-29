@@ -3,6 +3,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using UWPRobotController.Comm;
+using Microsoft.Maker.Firmata;
 using Microsoft.Maker.Serial;
 using Windows.Devices.Enumeration;
 using Microsoft.Maker.RemoteWiring;
@@ -21,12 +22,12 @@ namespace UWPRobotController
             this.InitializeComponent();
 
             Collection<String> options = new Collection<string>();
-            options.Add("Bluetooth RFCOMM");
+            options.Add("Bluetooth");
             options.Add("Bluetooth LE");
-            //options.Add("Usb Serial");
 
             comboBox.ItemsSource = options;
         }
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -35,20 +36,55 @@ namespace UWPRobotController
 
         private void RefreshDeviceList()
         {
-            //invoke the listAvailableDevicesAsync method of BluetoothSerial. Since it is Async, we will wrap it in a Task and add a llambda to execute when finished
-            BluetoothSerial.listAvailableDevicesAsync().AsTask<DeviceInformationCollection>().ContinueWith(listTask =>
+            if (comboBox.SelectedValue != null)
             {
-                //store the result and populate the device list on the UI thread
-                var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
+                if (comboBox.SelectedValue.Equals("Bluetooth LE"))
                 {
-                    _connections = new ObservableCollection<Connection>();
-                    foreach (DeviceInformation device in listTask.Result)
+                    DfRobotBleSerial.listAvailableDevicesAsync().AsTask<DeviceInformationCollection>().ContinueWith(listTask =>
                     {
-                        _connections.Add(new Connection(device.Name, device));
-                    }
-                    connectList.ItemsSource = _connections;
-                }));
-            });
+                        var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
+                        {
+                            _connections = new ObservableCollection<Connection>();
+                            foreach (DeviceInformation device in listTask.Result)
+                            {
+                                _connections.Add(new Connection(device.Name, device));
+                            }
+                            connectList.ItemsSource = _connections;
+
+                            // autoconnect if only 1 device is paired
+                            if (_connections.Count == 1)
+                            {
+                                connectList.SelectedItem = _connections[0];
+                                Reconnect_Click(null, null);
+                            }
+                        }));
+                    });
+                }
+                else if (comboBox.SelectedValue.Equals("Bluetooth"))
+                {
+                    BluetoothSerial.listAvailableDevicesAsync().AsTask<DeviceInformationCollection>().ContinueWith(listTask =>
+                    {
+                        var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
+                        {
+                            _connections = new ObservableCollection<Connection>();
+                            foreach (DeviceInformation device in listTask.Result)
+                            {
+                                _connections.Add(new Connection(device.Name, device));
+                            }
+                            connectList.ItemsSource = _connections;
+
+                            // autoconnect if only 1 device is paired
+                            if (_connections.Count == 1)
+                            {
+                                connectList.SelectedItem = _connections[0];
+                                Reconnect_Click(null, null);
+                            }
+                        }));
+                    });
+                }
+
+                
+            }
         }
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
@@ -66,20 +102,70 @@ namespace UWPRobotController
                 var selectedConnection = connectList.SelectedItem as Connection;
                 var device = selectedConnection.Source as DeviceInformation;
 
-                //construct the bluetooth serial object with the specified device
-                App.bluetooth = new BluetoothSerial(device);
 
-                App.bluetooth.ConnectionEstablished += Bluetooth_ConnectionEstablished;
-                App.bluetooth.ConnectionFailed += Bluetooth_ConnectionFailed;
-                App.arduino = new RemoteDevice(App.bluetooth);
-                App.bluetooth.begin(115200, 0);
+                //construct the bluetooth serial object with the specified device
+                if (comboBox.SelectedValue.Equals("Bluetooth"))
+                {
+                    App.bluetooth = new BluetoothSerial(device);
+                    ((BluetoothSerial)App.bluetooth).ConnectionEstablished += Bluetooth_ConnectionEstablished;
+                    ((BluetoothSerial)App.bluetooth).ConnectionFailed += Bluetooth_ConnectionFailed;
+                    ((BluetoothSerial)App.bluetooth).ConnectionLost += Bluetooth_ConnectionLost;
+                }
+                else if (comboBox.SelectedValue.Equals("Bluetooth LE"))
+                {
+                    App.bluetooth = new DfRobotBleSerial(device);
+                    ((DfRobotBleSerial)App.bluetooth).ConnectionEstablished += Bluetooth_ConnectionEstablished;
+                    ((DfRobotBleSerial)App.bluetooth).ConnectionFailed += Bluetooth_ConnectionFailed;
+                    ((DfRobotBleSerial)App.bluetooth).ConnectionLost += Bluetooth_ConnectionLost;
+                }
+
+                App.bluetooth.begin(115200, SerialConfig.SERIAL_8N1);
+
+                App.firmata = new UwpFirmata();
+                App.firmata.begin(App.bluetooth);
+
+                App.arduino = new RemoteDevice(App.firmata);
             }
+        }
+
+        private void Bluetooth_ConnectionLost()
+        {
+            if (comboBox.SelectedValue.Equals("Bluetooth"))
+            {
+                ((BluetoothSerial)App.bluetooth).ConnectionEstablished -= Bluetooth_ConnectionEstablished;
+                ((BluetoothSerial)App.bluetooth).ConnectionFailed -= Bluetooth_ConnectionFailed;
+                ((BluetoothSerial)App.bluetooth).ConnectionLost -= Bluetooth_ConnectionLost;
+            }
+            else if (comboBox.SelectedValue.Equals("Bluetooth LE"))
+            {
+                ((DfRobotBleSerial)App.bluetooth).ConnectionEstablished -= Bluetooth_ConnectionEstablished;
+                ((DfRobotBleSerial)App.bluetooth).ConnectionFailed -= Bluetooth_ConnectionFailed;
+                ((DfRobotBleSerial)App.bluetooth).ConnectionLost -= Bluetooth_ConnectionLost;
+            }
+
+            var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
+            {
+                setButtonsEnabled(true);
+                mTextBlock.Text = "Connection lost...";
+            }));
         }
 
         private void Bluetooth_ConnectionFailed(String error)
         {
-            App.bluetooth.ConnectionEstablished -= Bluetooth_ConnectionEstablished;
-            App.bluetooth.ConnectionFailed -= Bluetooth_ConnectionFailed;
+
+            if (comboBox.SelectedValue.Equals("Bluetooth"))
+            {
+                ((BluetoothSerial)App.bluetooth).ConnectionEstablished -= Bluetooth_ConnectionEstablished;
+                ((BluetoothSerial)App.bluetooth).ConnectionFailed -= Bluetooth_ConnectionFailed;
+                ((BluetoothSerial)App.bluetooth).ConnectionLost -= Bluetooth_ConnectionLost;
+            }
+            else if (comboBox.SelectedValue.Equals("Bluetooth LE"))
+            {
+                ((DfRobotBleSerial)App.bluetooth).ConnectionEstablished -= Bluetooth_ConnectionEstablished;
+                ((DfRobotBleSerial)App.bluetooth).ConnectionFailed -= Bluetooth_ConnectionFailed;
+                ((DfRobotBleSerial)App.bluetooth).ConnectionLost -= Bluetooth_ConnectionLost;
+            }
+
             var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
             {
                 setButtonsEnabled(true);
@@ -89,11 +175,20 @@ namespace UWPRobotController
 
         private void Bluetooth_ConnectionEstablished()
         {
-            App.bluetooth.ConnectionEstablished -= Bluetooth_ConnectionEstablished;
-            App.bluetooth.ConnectionFailed -= Bluetooth_ConnectionFailed;
+
+            if (comboBox.SelectedValue.Equals("Bluetooth"))
+            {
+                ((BluetoothSerial)App.bluetooth).ConnectionEstablished -= Bluetooth_ConnectionEstablished;
+            }
+            else if (comboBox.SelectedValue.Equals("Bluetooth LE"))
+            {
+                ((DfRobotBleSerial)App.bluetooth).ConnectionEstablished -= Bluetooth_ConnectionEstablished;
+            }
+
+            App.setupComplete = true;
             var action = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(() =>
             {
-                Frame.Navigate(typeof(ControllerConnectionPage));
+                Frame.Navigate(typeof(MainPage));
             }));
         }
 
@@ -113,7 +208,9 @@ namespace UWPRobotController
             }));
         }
 
-
-
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshDeviceList();
+        }
     }
 }

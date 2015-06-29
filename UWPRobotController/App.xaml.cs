@@ -1,20 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Microsoft.Maker.Firmata;
 using Microsoft.Maker.RemoteWiring;
 using Microsoft.Maker.Serial;
 using Windows.Networking.Sockets;
@@ -30,13 +21,12 @@ namespace UWPRobotController
     /// </summary>
     sealed partial class App : Application
     {
-        public static BluetoothSerial bluetooth;
+        public static RomeoControl control;
+        public static IStream bluetooth;
+        public static UwpFirmata firmata;
         public static RemoteDevice arduino;
 
-        // Command socket
-        public static MessageWebSocket commandSock;
-        public static DataWriter commandWriter;
-
+        // ensure connection before we show controls
         public static bool setupComplete;
        
         /// <summary>

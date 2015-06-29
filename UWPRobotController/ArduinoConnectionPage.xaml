@@ -6,15 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Page.TopAppBar>
-        <CommandBar>
-            <AppBarButton Icon="Back" Label="appbarbutton" Click="AppBarButton_Click"/>
-        </CommandBar>
-    </Page.TopAppBar>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Height="30" VerticalAlignment="Top"  Margin="51,40,41,0" Name="mTextBlock" Text="Connect to Arduino" Foreground="#FF01D1FF" FontSize="20" FontWeight="Bold" />
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Stretch" Margin="51,75,41,0" VerticalAlignment="Top" PlaceholderText="Select Device Type" />
+        <TextBlock Height="30" VerticalAlignment="Top"  Margin="10,10,10,0" Name="mTextBlock" Text="Connect to Arduino" Foreground="#FF01D1FF" FontSize="20" FontWeight="Bold" />
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Stretch" Margin="10,45,10,0" VerticalAlignment="Top" PlaceholderText="Select Device Type" SelectionChanged="comboBox_SelectionChanged" />
         <StackPanel x:Name="ConnectStackParent" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <ListBox x:Name="connectList" DisplayMemberPath="DisplayName" />
         </StackPanel>
