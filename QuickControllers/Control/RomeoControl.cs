@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maker.RemoteWiring;
 
-namespace UWPRobotController
+namespace QuickControllers 
 {
     public class RomeoControl : IControl
     {

@@ -1,4 +1,4 @@
-﻿namespace UWPRobotController.Comm
+﻿namespace QuickControllers.Comm
 {
     public class Connection
     {

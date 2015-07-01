@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Navigation;
 
 using Windows.System.Threading;
 
-namespace UWPRobotController.Interfaces
+namespace QuickControllers.Interfaces
 {
     public sealed partial class TankControlPage : Page
     {

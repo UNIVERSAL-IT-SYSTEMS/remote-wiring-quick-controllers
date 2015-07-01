@@ -2,14 +2,14 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using UWPRobotController.Comm;
+using QuickControllers.Comm;
 using Microsoft.Maker.Firmata;
 using Microsoft.Maker.Serial;
 using Windows.Devices.Enumeration;
 using Microsoft.Maker.RemoteWiring;
 using System.Collections.ObjectModel;
 
-namespace UWPRobotController 
+namespace QuickControllers
 {
 
     public sealed partial class ArduinoConnectionPage : Page
