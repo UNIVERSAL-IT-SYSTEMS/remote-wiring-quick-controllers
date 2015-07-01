@@ -14,7 +14,7 @@ using Windows.Storage.Streams;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=402347&clcid=0x409
 
-namespace UWPRobotController
+namespace QuickControllers 
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

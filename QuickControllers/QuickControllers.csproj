@@ -7,8 +7,8 @@
     <ProjectGuid>{3762A550-66B3-4992-B597-411FE56D9C6C}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UWPRobotController</RootNamespace>
-    <AssemblyName>UWPRobotController</AssemblyName>
+    <RootNamespace>QuickControllers</RootNamespace>
+    <AssemblyName>QuickControllers</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10069.0</TargetPlatformVersion>
@@ -17,7 +17,7 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>UWPRobotController_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>QuickControllers_TemporaryKey.pfx</PackageCertificateKeyFile>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -117,7 +117,7 @@
     </AppxManifest>
     <None Include="ApplicationInsights.config" />
     <None Include="packages.config" />
-    <None Include="UWPRobotController_TemporaryKey.pfx" />
+    <None Include="QuickControllers_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\ButtonImages\down.png" />

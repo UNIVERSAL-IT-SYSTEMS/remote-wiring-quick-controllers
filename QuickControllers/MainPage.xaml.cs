@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using UWPRobotController.Interfaces;
+using QuickControllers.Interfaces;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace UWPRobotController
+namespace QuickControllers 
 {
     /// <summary>
     /// MainPage shows controller and sets up robot interface
