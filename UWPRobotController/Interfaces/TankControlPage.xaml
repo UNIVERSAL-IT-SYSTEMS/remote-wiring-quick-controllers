@@ -15,21 +15,21 @@
 
     <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="43*"/>
+            <RowDefinition Height="42*"/>
             <RowDefinition Height="99*"/>
-            <RowDefinition Height="77*"/>
+            <RowDefinition Height="78*"/>
             <RowDefinition Height="99*"/>
             <RowDefinition Height="42*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="102*"/>
-            <ColumnDefinition Width="161*"/>
-            <ColumnDefinition Width="115*"/>
+            <ColumnDefinition Width="160*"/>
+            <ColumnDefinition Width="116*"/>
             <ColumnDefinition Width="160*"/>
             <ColumnDefinition Width="102*"/>
         </Grid.ColumnDefinitions>
-        <Slider x:Name="left_motor"  Orientation="Vertical" Grid.Row="1" TickPlacement="Outside" Maximum="255" Minimum="-255" TickFrequency="64" StepFrequency="64" ValueChanged="left_motor_ValueChanged" Grid.Column="1" HorizontalAlignment="Left" Width="40" Grid.RowSpan="3" DropCompleted="left_motor_DropCompleted" DragStarting="left_motor_DragStarting" IsThumbToolTipEnabled="False"/>
-        <Slider x:Name="right_motor"  Orientation="Vertical" Grid.Column="3" Grid.Row="1" Maximum="255" Minimum="-255" TickFrequency="64" TickPlacement="Outside" StepFrequency="64" LargeChange="30" ValueChanged="right_motor_ValueChanged" HorizontalAlignment="Right" Width="40" Grid.RowSpan="3" DropCompleted="right_motor_DropCompleted"  DragStarting="right_motor_DragStarting" IsThumbToolTipEnabled="False"/>
+        <Slider x:Name="left_motor"  Orientation="Vertical" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" HorizontalAlignment="Left" IsThumbToolTipEnabled="False" Maximum="255" Minimum="-255" StepFrequency="64" ValueChanged="left_motor_ValueChanged" Width="40" SmallChange="64" TickFrequency="64" TickPlacement="Inline" />
+        <Slider x:Name="right_motor"  Orientation="Vertical" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3" HorizontalAlignment="Right" IsThumbToolTipEnabled="False" Maximum="255" Minimum="-255" StepFrequency="64"  ValueChanged="right_motor_ValueChanged" Width="40" SmallChange="64" TickFrequency="64" TickPlacement="Inline" />
 
         <Button x:Name="buttonA" Grid.Column="2" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3" VerticalAlignment="Stretch" >
             <Image Source="../Assets/ButtonImages/headlights.png"/>
