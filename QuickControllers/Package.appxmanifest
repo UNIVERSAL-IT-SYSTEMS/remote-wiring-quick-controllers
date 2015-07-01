@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="30a0bd08-6917-40ba-8b7f-6bc4b88ba767" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>UWPRobotController</DisplayName>
+    <DisplayName>QuickControllers</DisplayName>
     <PublisherDisplayName>Conner</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -30,12 +30,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="UWPRobotController.App">
+      EntryPoint="QuickControllers.App">
       <uap:VisualElements
-        DisplayName="UWPRobotController"
+        DisplayName="QuickControllers"
         Square150x150Logo="Assets\Logo.png"
         Square44x44Logo="Assets\SmallLogo.png"
-        Description="UWPRobotController"
+        Description="QuickControllers"
         BackgroundColor="#ff00d8">
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
@@ -44,20 +44,15 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
-
-    <!-- for some reason only rfcomm or gatt can be picked not both on surface -->
-
-    <!--DeviceCapability Name="bluetooth.rfcomm">
+    <DeviceCapability Name="bluetooth.rfcomm">
       <Device Id="any">
         <Function Type="name:serialPort"/>
       </Device>
-    </DeviceCapability-->
-
+    </DeviceCapability>
     <DeviceCapability Name="bluetooth.genericAttributeProfile">
       <Device Id="any">
         <Function Type="name:genericAccess" />
       </Device>
     </DeviceCapability>
-
   </Capabilities>
 </Package>
