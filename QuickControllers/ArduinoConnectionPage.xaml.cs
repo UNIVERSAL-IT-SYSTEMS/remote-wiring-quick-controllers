@@ -128,7 +128,7 @@ namespace QuickControllers
             }
         }
 
-        private void Bluetooth_ConnectionLost()
+        private void Bluetooth_ConnectionLost(string message)
         {
             if (comboBox.SelectedValue.Equals("Bluetooth"))
             {
